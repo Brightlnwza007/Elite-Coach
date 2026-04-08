@@ -1,0 +1,11 @@
+{
+  "name": "elite-coach-app",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "echo build success"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}
