@@ -11,41 +11,26 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, #111, #000);
+  background: #000;
   color: white;
   overflow-x: hidden;
-}
-
-/* glow background */
-body::before {
-  content: "";
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(120px);
-  z-index: -1;
 }
 
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 80px 20px;
+  padding: 100px 20px;
 }
 
 .hero {
   text-align: center;
-  padding-top: 120px;
 }
 
 .hero h1 {
   font-size: 64px;
   font-weight: 800;
   line-height: 1.2;
-  background: linear-gradient(to right, #fff, #aaa);
+  background: linear-gradient(to right, #fff, #888);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -53,7 +38,6 @@ body::before {
 .hero p {
   color: #aaa;
   margin-top: 20px;
-  font-size: 18px;
 }
 
 .btn {
@@ -61,94 +45,88 @@ body::before {
   display: inline-block;
   padding: 16px 40px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #fff, #ccc);
+  background: white;
   color: black;
-  font-weight: 600;
   text-decoration: none;
+  font-weight: 600;
   transition: 0.3s;
-  box-shadow: 0 10px 30px rgba(255,255,255,0.2);
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px rgba(255,255,255,0.3);
+  transform: scale(1.05);
 }
 
-.section {
-  margin-top: 140px;
-  text-align: center;
+/* reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 1s;
 }
 
-.section h2 {
-  font-size: 36px;
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.benefits {
-  margin-top: 60px;
+/* cards */
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
   gap: 30px;
+  margin-top: 50px;
 }
 
 .card {
   padding: 30px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: 0.3s;
+  background: #111;
+  border: 1px solid #222;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255,255,255,0.3);
-}
-
-.price-box {
-  margin-top: 80px;
-  padding: 50px;
+/* testimonial */
+.testimonial {
+  background: #111;
+  padding: 40px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
+  margin-top: 60px;
+  text-align: center;
+}
+
+/* urgency */
+.urgency {
+  margin-top: 40px;
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+/* price */
+.price-box {
+  margin-top: 60px;
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  text-align: center;
 }
 
 .price {
-  font-size: 56px;
+  font-size: 50px;
   margin: 20px 0;
-}
-
-/* fade animation */
-.fade {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s ease forwards;
-}
-
-.fade:nth-child(2) { animation-delay: 0.3s; }
-.fade:nth-child(3) { animation-delay: 0.6s; }
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container hero fade">
+<div class="container hero reveal">
   <h1>Become the version of you nobody can ignore.</h1>
   <p>Discipline. Focus. Power.</p>
   <a href="#" class="btn">Get Access</a>
 </div>
 
-<div class="container section fade">
+<div class="container reveal">
   <h2>What You Gain</h2>
 
-  <div class="benefits">
+  <div class="grid">
     <div class="card">
       <h3>Discipline System</h3>
       <p>Build habits that separate you from 99% of people.</p>
@@ -161,19 +139,42 @@ body::before {
 
     <div class="card">
       <h3>Elite Mindset</h3>
-      <p>Think and act like someone who always wins.</p>
+      <p>Think and act like someone who wins.</p>
     </div>
   </div>
 </div>
 
-<div class="container section fade">
+<div class="container reveal">
+  <div class="testimonial">
+    <p>"This completely changed my mindset. I became more disciplined in 7 days than I had in years."</p>
+    <strong>- Alex, 21</strong>
+  </div>
+</div>
+
+<div class="container reveal">
   <div class="price-box">
     <h2>Start Now</h2>
     <div class="price">$9</div>
     <p>One-time payment. Lifetime access.</p>
+
+    <div class="urgency">⚠️ Limited offer. Price increasing soon.</div>
+
     <a href="#" class="btn">Buy Now</a>
   </div>
 </div>
+
+<script>
+const reveals = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      el.classList.add("active");
+    }
+  });
+});
+</script>
 
 </body>
 </html>
